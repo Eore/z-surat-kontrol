@@ -1,0 +1,141 @@
+<html>
+
+<head>
+  <title>Surat Kontrol</title>
+</head>
+
+<style>
+  body {
+    display: flex;
+  }
+
+  #input-data,
+  #wrapper-show {
+    margin: 20px;
+  }
+
+  #wrapper-show {
+    height: 300px;
+    overflow: scroll;
+  }
+</style>
+
+<body>
+  <div id="input-data">
+    <table>
+      <tr>
+        <td><label for="nomor-rm">Nomor Rekam Medis</label></td>
+        <td><input id="nomor-rm" name="nomorRekamMedis" type="text"></td>
+      </tr>
+      <tr>
+        <td><label for="nama">Nama</label></td>
+        <td><input id="nama" name="nama" type="text"></td>
+      </tr>
+      <tr>
+        <td><label for="alamat">Alamat</label></td>
+        <td><textarea id="alamat" name="alamat" type="text"></textarea></td>
+      </tr>
+      <tr>
+        <td><label for="diagnosis">Diagnosis</label></td>
+        <td><textarea id="diagnosis" name="diagnosis" type="text"></textarea></td>
+      </tr>
+      <tr>
+        <td><label for="terapi">Terapi</label></td>
+        <td><textarea id="terapi" name="terapi" type="text"></textarea></td>
+      </tr>
+      <tr>
+        <td><label for="tanggal-kontrol">Tanggal Kontrol</label></td>
+        <td><input type="date" name="tanggalKontrol" id="tanggal-kontrol"></td>
+      </tr>
+      <tr>
+        <td><label for="dokter">Dokter</label></td>
+        <td><input id="dokter" name="dokter" type="text"></td>
+      </tr>
+    </table>
+    <input id="post-data" type="submit" value="Input">
+  </div>
+  <div id="wrapper-show">
+    <div>
+      <input id="search" type="text" placeholder="Cari...">
+    </div>
+    <div id="show-data">
+    </div>
+  </div>
+</body>
+
+<script>
+  let postButton = document.getElementById("post-data")
+  let search = document.getElementById("search")
+
+  search.onkeyup = () => {
+    showData(search.value)
+  }
+
+  window.onload = () => {
+    getData(document.URL + 'getdata').then(() => showData(false))
+  }
+
+  postButton.onclick = () => {
+    let show = document.getElementById('show-data')
+    let text = 'Apakah data sudah benar?\n'
+    let data = selectAsJSON()
+    for (let key in data) {
+      text += (key + ' : ' + data[key] + '\n')
+    }
+    if (confirm(text)) {
+      postDataAsJSON(document.URL + 'input', data)
+      show.innerHTML = 'loading...'
+      setTimeout(() => {
+        getData(document.URL + 'getdata').then(() => showData(false))
+      }, 2000)
+
+      reset()
+    }
+  }
+
+  let reset = () => {
+    let arr = new Array(...document.querySelectorAll('[name]'))
+    arr.forEach(el => el.value = '')
+  }
+
+  let selectAsJSON = () => {
+    let arr = new Array(...document.querySelectorAll('[name]'))
+    return arr.reduce((obj, val) => {
+      obj[val.name] = val.value
+      return obj
+    }, {})
+  }
+
+  let postDataAsJSON = (url, data) => {
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+  }
+
+  let showData = filter => {
+    let show = document.getElementById('show-data')
+    show.innerHTML = ''
+    let data = JSON.parse(localStorage.getItem('data-surat'))
+    data.filter(el => filter ? (
+      new RegExp(filter, 'g').test(el.nomorSurat) ||
+      new RegExp(filter, 'g').test(el.nama) ||
+      new RegExp(filter, 'g').test(el.nomorRekamMedis)
+    ) : true).forEach(el => {
+      show.innerHTML += `
+          <li><a target="_blank" href="/suratkontrol/${el.nomorSurat.replace(/\//g, '-')}">${el.nomorSurat} - ${el.nama}(${el.nomorRekamMedis})</a></li>
+        `
+    })
+  }
+
+  let getData = url => {
+    let show = document.getElementById('show-data')
+    show.innerHTML = ''
+    return fetch(url).then(val => val.json()).then(data => localStorage.setItem('data-surat', JSON.stringify(data)))
+  }
+</script>
+
+</html>

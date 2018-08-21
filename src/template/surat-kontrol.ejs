@@ -1,0 +1,161 @@
+<html>
+
+<head>
+  <title>Surat Kontrol</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<style>
+  * {
+    font-size: .95em;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+  }
+
+  body {
+    padding: 0 10px;
+  }
+
+  #logo {
+    width: 50px;
+    margin-right: 10px;
+  }
+
+  #logo>img {
+    width: 100%;
+  }
+
+  #detail>div:not(:first-child) {
+    font-size: 0.8em;
+  }
+
+  #main-header {
+    border-top-style: double;
+    border-bottom: 1px solid black;
+    padding: 5px 0;
+  }
+
+  #main-header>* {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
+
+  #content {
+    margin: 5px 0;
+  }
+
+  #content table tr>th {
+    text-align: left;
+    width: 120px;
+  }
+
+  #ttd {
+    margin-top: 20px;
+    float: right;
+    width: 150px;
+  }
+
+  #ttd>div {
+    font-size: 0.7em;
+    text-align: center;
+  }
+
+  #ttd>div:nth-child(2) {
+    padding-bottom: 80px;
+    border-bottom-style: double;
+  }
+</style>
+
+<body>
+  <header>
+    <table>
+      <tr>
+        <td>
+          <div id="logo">
+            <img src="<%= logo %>" alt="logo">
+          </div>
+        </td>
+        <td>
+          <div id="detail">
+            <div>
+              <strong>RUMAH SAKIT IBU ANAK ZAINAB</strong>
+            </div>
+            <div>JL.RONGGO WARSITO I NO.1, PEKANBARU 24125</div>
+            <div>Telp.: 0761-24000 Fax.: 0761-25444</div>
+            <div>Web Url.: https://www.rsiazainab.co.id , E-Mail.: rs_zainab@yahoo.com</div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </header>
+  <main>
+    <div id="main-header">
+      <h2>SURAT KONTROL</h2>
+      <h2>No.Surat : [<%= nomorSurat %>]</h2>
+    </div>
+    <div id="content">
+      <table>
+        <tbody>
+          <tr>
+            <th>Nama</th>
+            <td>:</td>
+            <td>
+              <%= nama %>
+            </td>
+          </tr>
+          <tr>
+            <th>Diagnosis</th>
+            <td>:</td>
+            <td>
+              <%= diagnosis %>
+            </td>
+          </tr>
+          <tr>
+            <th>Terapi</th>
+            <td>:</td>
+            <td>
+              <%= terapi %>
+            </td>
+          </tr>
+          <tr>
+            <th>Alamat</th>
+            <td>:</td>
+            <td>
+              <%= alamat %>
+            </td>
+          </tr>
+          <tr>
+            <th>Tanggal kontrol</th>
+            <td>:</td>
+            <td>
+              <%= jadwalKontrol %>
+            </td>
+          </tr>
+          <tr>
+            <th>Pada dokter</th>
+            <td>:</td>
+            <td>
+              <%= dokter %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <footer>
+    <div id="ttd">
+      <div>PEKANBARU,
+        <%= tanggal %>
+      </div>
+      <div>Dokter Pengirim</div>
+      <div>(
+        <%= dokter %>)</div>
+    </div>
+  </footer>
+</body>
+
+</html>
