@@ -54,8 +54,10 @@
   }
 
   #ttd {
-    margin-top: 20px;
-    float: right;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 20px;
     width: 150px;
   }
 
@@ -95,7 +97,9 @@
   <main>
     <div id="main-header">
       <h2>SURAT KONTROL</h2>
-      <h2>No.Surat : [<%= nomorSurat %>]</h2>
+      <h2>No.Surat : [
+        <%= nomorSurat %>]
+      </h2>
     </div>
     <div id="content">
       <table>
@@ -153,7 +157,8 @@
       </div>
       <div>Dokter Pengirim</div>
       <div>(
-        <%= dokter %>)</div>
+        <%= dokter %>)
+      </div>
     </div>
   </footer>
 </body>
