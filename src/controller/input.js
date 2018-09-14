@@ -11,7 +11,7 @@ module.exports = (req, res) => {
   con.query(
     `
     select 
-    cast(right(coalesce(max(nomorSurat), 0), 5) as int) + 1 as result 
+    right(coalesce(max(nomorSurat), 0), 5) + 1 as result 
     from suratKontrol 
     where nomorSurat like ?
     `,

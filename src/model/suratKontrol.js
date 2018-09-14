@@ -8,7 +8,8 @@ module.exports = connection => {
       diagnosis text,
       terapi text,
       tanggalKontrol date,
-      dokter varchar(30)
+      dokter varchar(30),
+      rujuk boolean
     )
   `);
 };

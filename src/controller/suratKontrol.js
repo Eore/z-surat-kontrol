@@ -25,7 +25,6 @@ module.exports = (req, res) => {
       nomorSurat: req.params.nomor.replace(/\-/g, "/")
     },
     (err, val) => {
-      // res.json(val);
       let date = new Date();
       let tanggalKontrol = val[0].tanggalKontrol
         ? new Date(val[0].tanggalKontrol)
@@ -42,7 +41,8 @@ module.exports = (req, res) => {
         } ${tanggalKontrol.getFullYear()}`,
         tanggal: `${date.getDate()} ${
           bulan[date.getMonth()]
-        } ${date.getFullYear()}`
+        } ${date.getFullYear()}`,
+        rujuk: val[0].rujuk
       }).then(stream => stream.pipe(res));
     }
   );

@@ -25,32 +25,58 @@
     <table>
       <tr>
         <td><label for="nomor-rm">Nomor Rekam Medis</label></td>
-        <td><input id="nomor-rm" name="nomorRekamMedis" type="text"></td>
+        <td><input id="nomor-rm" name="in-nomorRekamMedis" type="text"></td>
       </tr>
       <tr>
         <td><label for="nama">Nama</label></td>
-        <td><input id="nama" name="nama" type="text"></td>
+        <td><input id="nama" name="in-nama" type="text"></td>
       </tr>
       <tr>
         <td><label for="alamat">Alamat</label></td>
-        <td><textarea id="alamat" name="alamat" type="text"></textarea></td>
+        <td><textarea id="alamat" name="in-alamat" type="text"></textarea></td>
       </tr>
       <tr>
         <td><label for="diagnosis">Diagnosis</label></td>
-        <td><textarea id="diagnosis" name="diagnosis" type="text"></textarea></td>
+        <td><textarea id="diagnosis" name="in-diagnosis" type="text"></textarea></td>
       </tr>
       <tr>
         <td><label for="terapi">Terapi</label></td>
-        <td><textarea id="terapi" name="terapi" type="text"></textarea></td>
+        <td><textarea id="terapi" name="in-terapi" type="text"></textarea></td>
       </tr>
       <tr>
         <td><label for="tanggal-kontrol">Tanggal Kontrol</label></td>
-        <td><input type="date" name="tanggalKontrol" id="tanggal-kontrol"></td>
+        <td><input type="date" name="in-tanggalKontrol" id="tanggal-kontrol"></td>
+      </tr>
+      <!-- <tr>
+        <td><label for="dokter">Dokter</label></td>
+        <td><input id="dokter" name="dokter" type="text"></td>
+      </tr> -->
+      <tr>
+        <td>
+          Tempat Kontrol:
+        </td>
+      </tr>
+      <tr>
+        <td><input type="radio" name="tempat-kontrol" value="RSIA Zainab">RSIA Zainab</td>
+      </tr>
+      <tr>
+        <td><input type="radio" name="tempat-kontrol" value="FKTP">FKTP</td>
+      </tr>
+      <tr>
+        <td><input type="radio" name="tempat-kontrol" value="Lainnya">Lainnya</td>
+      </tr>
+      <tr id="fktp" hidden>
+        <td><label for="input-fktp">Nama FKTP</label></td>
+        <td><input id="input-fktp" name="fktp" type="text"></td>
       </tr>
       <tr>
         <td><label for="dokter">Dokter</label></td>
-        <td><input id="dokter" name="dokter" type="text"></td>
+        <td><input id="dokter" name="in-dokter" type="text"></td>
       </tr>
+      <!-- <tr>
+
+        <td>Rujuk ke faskes? <input type="checkbox" name="rujuk" id="rujuk"></td>
+      </tr> -->
     </table>
     <input id="post-data" type="submit" value="Input">
   </div>
@@ -66,6 +92,19 @@
 <script>
   let postButton = document.getElementById("post-data")
   let search = document.getElementById("search")
+  let tempatKontrol = document.querySelectorAll('[name=tempat-kontrol]')
+
+  tempatKontrol.forEach(el => {
+    el.onchange = () => {
+      if (document.querySelector('[value=FKTP][name=tempat-kontrol]').checked) {
+        document.getElementById('fktp').hidden = false
+      } else {
+        document.getElementById('input-fktp').value = ''
+        document.getElementById('fktp').hidden = true
+      }
+    }
+  })
+
 
   search.onkeyup = () => {
     showData(search.value)
@@ -95,13 +134,21 @@
 
   let reset = () => {
     let arr = new Array(...document.querySelectorAll('[name]'))
-    arr.forEach(el => el.value = '')
+    arr.forEach(el => el.name === 'rujuk' ? el.checked = false : el.value = '')
   }
 
   let selectAsJSON = () => {
     let arr = new Array(...document.querySelectorAll('[name]'))
     return arr.reduce((obj, val) => {
-      obj[val.name] = val.value
+      if (val.name === 'rujuk') {
+        obj[val.name] = val.checked
+      } else
+        if (val.name === 'tempat-kontrol' && val.checked === true) {
+          obj
+        } else {
+          obj[val.name] = val.value
+        }
+
       return obj
     }, {})
   }

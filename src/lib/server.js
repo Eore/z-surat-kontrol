@@ -13,7 +13,5 @@ module.exports = () => {
   app.get("/getdata", require("../controller/getData"));
   app.post("/input", require("../controller/input"));
   app.get("/suratkontrol/:nomor", require("../controller/suratKontrol"));
-  // app.get("/suratkontrol/:nomor", (req, res) => res.send(req.params.nomor));
-  // app.use("*", (req, res) => res.redirect("/"));
   app.listen(port, () => console.log(`HTTP server berjalan di port ${port}`));
 };

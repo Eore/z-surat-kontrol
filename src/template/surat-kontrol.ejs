@@ -20,7 +20,7 @@
   }
 
   #logo {
-    width: 50px;
+    width: 40px;
     margin-right: 10px;
   }
 
@@ -53,20 +53,31 @@
     width: 120px;
   }
 
-  #ttd {
-    position: absolute;
+  .hidden {
+    visibility: hidden;
+  }
+
+  .left {
+    left: 0;
+  }
+
+  .right {
     right: 0;
+  }
+
+  .ttd {
+    position: absolute;
     bottom: 0;
     margin: 20px;
     width: 150px;
   }
 
-  #ttd>div {
+  .ttd>div {
     font-size: 0.7em;
     text-align: center;
   }
 
-  #ttd>div:nth-child(2) {
+  .ttd>div:nth-child(2) {
     padding-bottom: 80px;
     border-bottom-style: double;
   }
@@ -97,7 +108,8 @@
   <main>
     <div id="main-header">
       <h2>SURAT KONTROL</h2>
-      <h2>No.Surat : [
+      <h2>
+        No.Surat : [
         <%= nomorSurat %>]
       </h2>
     </div>
@@ -151,13 +163,21 @@
     </div>
   </main>
   <footer>
-    <div id="ttd">
+    <div class="ttd <%= rujuk ? 'left': 'right'%>">
       <div>PEKANBARU,
         <%= tanggal %>
       </div>
       <div>Dokter Pengirim</div>
-      <div>(
+      <div>
+        (
         <%= dokter %>)
+      </div>
+    </div>
+    <div class="ttd <%= rujuk ? 'right': 'hidden'%>">
+      <div>
+      </div>
+      <div>Dokter Faskes</div>
+      <div>(dr. <span style="display: inline-block; width: 100px;"></span>)
       </div>
     </div>
   </footer>
