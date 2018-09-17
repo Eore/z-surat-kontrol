@@ -42,7 +42,8 @@ module.exports = (req, res) => {
         tanggal: `${date.getDate()} ${
           bulan[date.getMonth()]
         } ${date.getFullYear()}`,
-        rujuk: val[0].rujuk
+        tempatKontrol: val[0].tempatKontrol,
+        namaTempat: val[0].namaTempat
       }).then(stream => stream.pipe(res));
     }
   );

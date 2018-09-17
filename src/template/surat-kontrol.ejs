@@ -152,7 +152,23 @@
             </td>
           </tr>
           <tr>
-            <th>Pada dokter</th>
+            <th>Tempat kontrol</th>
+            <td>:</td>
+            <td>
+              <%= tempatKontrol %>
+            </td>
+          </tr>
+          <% if (tempatKontrol === 'FKTP') { %>
+          <tr>
+            <th>Nama FKTP</th>
+            <td>:</td>
+            <td>
+              <%= namaTempat %>
+            </td>
+          </tr>
+          <% } %>
+          <tr>
+            <th>Dokter pengirim</th>
             <td>:</td>
             <td>
               <%= dokter %>
@@ -163,20 +179,21 @@
     </div>
   </main>
   <footer>
-    <div class="ttd <%= rujuk ? 'left': 'right'%>">
+    <div class="ttd <%= tempatKontrol !== 'RSIA Zainab' ? 'left': 'right'%>">
       <div>PEKANBARU,
         <%= tanggal %>
       </div>
       <div>Dokter Pengirim</div>
       <div>
-        (
-        <%= dokter %>)
+        (<%= dokter %>)
       </div>
     </div>
-    <div class="ttd <%= rujuk ? 'right': 'hidden'%>">
+    <div class="ttd <%= tempatKontrol !== 'RSIA Zainab' ? 'right': 'hidden'%>">
       <div>
       </div>
-      <div>Dokter Faskes</div>
+      <div>Dokter
+        <%= tempatKontrol === 'FKTP' ? 'FKTP' : 'Penerima' %>
+      </div>
       <div>(dr. <span style="display: inline-block; width: 100px;"></span>)
       </div>
     </div>
