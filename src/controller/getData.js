@@ -21,7 +21,7 @@ module.exports = (req, res) => {
   model(con);
 
   con.query(
-    "select * from suratKontrol order by nomorSurat desc",
+    "select * from suratKontrol order by nomorSurat desc limit 50",
     (err, val) => {
       res.json(val);
     }
