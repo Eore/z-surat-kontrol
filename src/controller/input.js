@@ -15,7 +15,7 @@ module.exports = (req, res) => {
     from suratKontrol 
     where nomorSurat like ?
     `,
-    partial + "%",
+    partial.substr(0, 6) + "%",
     (err, val) => {
       let num = "00000" + val[0].result.toString();
       con.query("insert into suratKontrol set ?", {
