@@ -10,7 +10,8 @@ module.exports = connection => {
       tanggalKontrol date,
       dokter varchar(100),
       tempatKontrol varchar(15),
-      namaTempat varchar(100)
+      namaTempat varchar(100),
+      keterangan text
     )
   `);
 };
