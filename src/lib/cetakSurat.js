@@ -19,7 +19,8 @@ module.exports = (
     jadwalKontrol,
     dokter,
     tempatKontrol,
-    namaTempat
+    namaTempat,
+    keterangan
   }
 ) =>
   new Promise((resolve, reject) => {
