@@ -1,27 +1,16 @@
 let con = require("../lib/database");
 let model = require("../model/suratKontrol");
-let cetakSurat = require("../lib/cetakSurat");
-
-let bulan = [
-  "Januari",
-  "Februari",
-  "Maret",
-  "April",
-  "Mei",
-  "Juni",
-  "Juli",
-  "Agustus",
-  "September",
-  "Oktober",
-  "November",
-  "Desember"
-];
 
 module.exports = (req, res) => {
   model(con);
 
+  let { search } = req.query;
+
   con.query(
-    "select * from suratKontrol order by nomorSurat desc limit 50",
+    `select * from suratKontrol ${
+      search ? "where nomorRekamMedis like ?" : ""
+    } order by nomorSurat desc limit 50`,
+    search ? [`%${search}%`] : null,
     (err, val) => {
       res.json(val);
     }
