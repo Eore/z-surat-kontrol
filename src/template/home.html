@@ -150,7 +150,7 @@
       }
       if (confirm(text)) {
         postDataAsJSON(document.URL + "input", data);
-        show.innerHTML = "loading...";
+        show.innerHTML = "Loading...";
         setTimeout(() => {
           getData(document.URL + "getdata").then(() => showData(false));
         }, 2000);
@@ -189,14 +189,19 @@
       });
     };
 
-    let printData = data =>
-      data.forEach(el => {
-        let linkNomorSurat = el.nomorSurat.replace(/\//g, "-");
-        let nomorSurat = `${el.nomorSurat} - ${el.nama} (${
-          el.nomorRekamMedis
-        })`;
-        show.innerHTML += `<li><a target="_blank" href="/suratkontrol/${linkNomorSurat}">${nomorSurat}</a></li>`;
-      });
+    let printData = data => {
+      if (data.length != 0) {
+        data.forEach(el => {
+          let linkNomorSurat = el.nomorSurat.replace(/\//g, "-");
+          let nomorSurat = `${el.nomorSurat} - ${el.nama} (${
+            el.nomorRekamMedis
+          })`;
+          show.innerHTML += `<li><a target="_blank" href="/suratkontrol/${linkNomorSurat}">${nomorSurat}</a></li>`;
+        });
+      } else {
+        show.innerHTML = "Data tidak ditemukan!";
+      }
+    };
 
     let fetchData = nomorRM =>
       fetch(
