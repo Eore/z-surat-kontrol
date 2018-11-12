@@ -150,11 +150,10 @@
       }
       if (confirm(text)) {
         postDataAsJSON(document.URL + "input", data);
-        show.innerHTML = "Loading...";
-        setTimeout(() => {
-          getData(document.URL + "getdata").then(() => showData(false));
-        }, 2000);
-
+        fetchData().then(data => {
+          show.innerHTML = "";
+          printData(data);
+        });
         reset();
       }
     };
