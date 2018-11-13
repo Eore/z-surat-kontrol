@@ -149,6 +149,7 @@
         text += key + " : " + data[key] + "\n";
       }
       if (confirm(text)) {
+        show.innerHTML = "Loading...";
         postDataAsJSON(document.URL + "input", data).then(() => {
           fetchData().then(data => {
             show.innerHTML = "";
