@@ -149,10 +149,11 @@
         text += key + " : " + data[key] + "\n";
       }
       if (confirm(text)) {
-        postDataAsJSON(document.URL + "input", data);
-        fetchData().then(data => {
-          show.innerHTML = "";
-          printData(data);
+        postDataAsJSON(document.URL + "input", data).then(() => {
+          fetchData().then(data => {
+            show.innerHTML = "";
+            printData(data);
+          });
         });
         reset();
       }
@@ -178,7 +179,7 @@
       }, {});
     };
 
-    let postDataAsJSON = (url, data) => {
+    let postDataAsJSON = (url, data) =>
       fetch(url, {
         method: "POST",
         headers: {
@@ -186,7 +187,6 @@
         },
         body: JSON.stringify(data)
       });
-    };
 
     let printData = data => {
       if (data.length != 0) {

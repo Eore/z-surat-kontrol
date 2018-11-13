@@ -18,10 +18,16 @@ module.exports = (req, res) => {
     partial.substr(0, 6) + "%",
     (err, val) => {
       let num = "00000" + val[0].result.toString();
-      con.query("insert into suratKontrol set ?", {
-        nomorSurat: partial + num.substr(num.length - 5),
-        ...req.body
-      });
+      con.query(
+        "insert into suratKontrol set ?",
+        {
+          nomorSurat: partial + num.substr(num.length - 5),
+          ...req.body
+        },
+        err => {
+          res.json("success");
+        }
+      );
     }
   );
 };
